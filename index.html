@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GlobalFreight - Enterprise-grade cargo logistics and tracking solutions worldwide.">
+    <title>GlobalFreight - Cargo Logistics</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#091C4F',
+                        gold: '#F4B324',
+                        'yellow-500': '#FBBF24',
+                        'maritime-blue': '#2C3E8F',
+                        'steel-gray': '#4B5563',
+                        'gray-50': '#F9FAFB',
+                        'gray-100': '#F3F4F6',
+                        'gray-200': '#E5E7EB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-slide': 'fadeSlide 0.6s ease-out forwards',
+                        'checkpoint-pulse': 'checkpointPulse 1.5s ease-in-out infinite',
+                        'progress-fill': 'progressFill 0.8s ease-out forwards',
+                        'shake': 'shake 0.4s ease-in-out',
+                        'text-scale': 'scale 0.5s ease-in-out',
+                        'modal-slide': 'modalSlideIn 0.3s ease-out'
+                    },
+                    keyframes: {
+                        fadeSlide: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        checkpointPulse: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.2)' }
+                        },
+                        progressFill: {
+                            '0%': { width: '0%' },
+                            '100%': { width: 'var(--progress-width)' }
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '25%': { transform: 'translateX(-4px)' },
+                            '75%': { transform: 'translateX(4px)' }
+                        },
+                        textFade: {
+                            '0%': { opacity: '0', transform: 'translateY(8px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        modalSlideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23091C4F' d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 0v4m0 0h4m-4 0h-4m6 2l2 2m-8-2l-2 2m2 6l2 2m-2-2l-2-2' /><rect x='4' y='12' width='16' height='6' rx='1' fill='%23F4B324' /></svg>">
+</head>
+<body class="font-inter text-gray-900 bg-gray-100">
+        <!-- Sticky CTA (Desktop Only) -->
+        <div class="hidden lg:block fixed bottom-8 right-8 z-50 animate-fade-slide">
+            <a href="#quote" class="flex items-center bg-gold text-navy font-semibold py-3 px-6 rounded-full hover:bg-yellow-500 hover:scale-105 transition-all duration-300 shadow-lg focus:ring-2 focus:ring-gold" aria-label="Request a quick quote">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Quick Quote
+            </a>
+        </div>
+
+   <!-- Navbar Section -->
+<nav class="bg-navy text-white sticky top-0 z-50 shadow-xl h-16" aria-label="Main navigation">
+    <div class="max-w-8xl mx-auto px-4 pt-3 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-full">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="#home" class="flex items-center transform hover:scale-105 transition-all duration-300" aria-label="GlobalFreight Home">
+                    <svg class="w-10 h-10 mr-2" viewBox="0 0 24 24" fill="none" stroke="#F4B324" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 110 20 10 10 0 010-20zm0 0v4m0 0h4m-4 0h-4m6 2l2 2m-8-2l-2 2m2 6l2 2m-2-2l-2-2" />
+                        <rect x="4" y="12" width="16" height="6" rx="1" fill="#FFFFFF" />
+                    </svg>
+                    <span class="text-xl font-extrabold text-white">GlobalFreight</span>
+                </a>
+            </div>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
+                <a href="#home" class="hover:text-gold transition-colors duration-200 font-semibold text-base" aria-current="page">Home</a>
+                <a href="#tracking" class="hover:text-gold transition-colors duration-200 font-semibold text-base">Track</a>
+                <!-- Services Dropdown -->
+                <div class="relative group">
+                    <button class="hover:text-gold transition-colors duration-200 font-semibold text-base flex items-center focus:outline-none focus:ring-2 focus:ring-gold" aria-haspopup="true" aria-expanded="false" id="services-menu">
+                        Services
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white text-gray-900 shadow-lg rounded-lg mt-2 w-64 transform opacity-0 group-hover:opacity-100 group-hover:animate-slide-down transition-all duration-200 z-50" aria-labelledby="services-menu">
+                        <a href="#services-air" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="#091C4F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                            <div>
+                                <span class="font-semibold">Air Freight</span>
+                                <p class="text-sm text-gray-600">Swift global deliveries</p>
+                            </div>
+                        </a>
+                        <a href="#services-sea" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="#091C4F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                            <div>
+                                <span class="font-semibold">Sea Freight</span>
+                                <p class="text-sm text-gray-600">Reliable ocean transport</p>
+                            </div>
+                        </a>
+                        <a href="#services-land" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="#091C4F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+                            <div>
+                                <span class="font-semibold">Land Transport</span>
+                                <p class="text-sm text-gray-600">Efficient road & rail</p>
+                            </div>
+                        </a>
+                        <a href="#services-customs" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="#091C4F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                            <div>
+                                <span class="font-semibold">Customs Clearance</span>
+                                <p class="text-sm text-gray-600">Hassle-free compliance</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- Why GlobalFreight Dropdown -->
+                <div class="relative group">
+                    <button class="hover:text-gold transition-colors duration-200 font-semibold text-base flex items-center focus:outline-none focus:ring-2 focus:ring-gold" aria-haspopup="true" aria-expanded="false" id="why-menu">
+                        Why GlobalFreight
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white text-gray-900 shadow-lg rounded-lg mt-2 w-64 transform opacity-0 group-hover:opacity-100 group-hover:animate-slide-down transition-all duration-200 z-50" aria-labelledby="why-menu">
+                        <a href="#why-success" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="#091C4F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <div>
+                                <span class="font-semibold">Success Stories</span>
+                                <p class="text-sm text-gray-600">Proven client results</p>
+                            </div>
+                        </a>
+                        <a href="#why-sustainability" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="#091C4F" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            <div>
+                                <span class="font-semibold">Sustainability</span>
+                                <p class="text-sm text-gray-600">Eco-friendly logistics</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <a href="#quote" class="hover:text-gold transition-colors duration-200 font-semibold text-base">Get a Quote</a>
+                <a href="#contact" class="hover:text-gold transition-colors duration-200 font-semibold text-base">Contact</a>
+                <!-- Language Toggle -->
+                <div class="relative group">
+                    <button class="hover:text-gold transition-colors duration-200 font-semibold text-base flex items-center focus:outline-none focus:ring-2 focus:ring-gold" aria-haspopup="true" aria-expanded="false" id="language-menu">
+                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.5 0a9 9 0 019 9 9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 019-9zm-5.5 6H3m18 0h-2.5M6 12h12" />
+                        </svg>
+                        EN
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white text-gray-900 shadow-lg rounded-lg mt-2 w-36 right-0 transform opacity-0 group-hover:opacity-100 group-hover:animate-slide-down transition-all duration-200 z-50" aria-labelledby="language-menu">
+                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors duration-200 text-sm" onclick="changeLanguage('en')">English</button>
+                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors duration-200 text-sm" onclick="changeLanguage('es')">Español</button>
+                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors duration-200 text-sm" onclick="changeLanguage('zh')">中文</button>
+                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors duration-200 text-sm" onclick="changeLanguage('de')">Deutsch</button>
+                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors duration-200 text-sm" onclick="changeLanguage('fr')">Français</button>
+                    </div>
+                </div>
+                <!-- Client Portal -->
+                <a href="#client-portal" class="bg-gold text-navy font-semibold py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors duration-200 text-base">Client Portal</a>
+                <!-- Certifications Badge -->
+                <span class="text-xs font-medium bg-white text-navy px-2 py-1 rounded-md shadow-sm">ISO 9001 Certified</span>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-navy text-white fixed inset-0 z-50" aria-hidden="true">
+        <div class="mobile-menu-backdrop fixed inset-0 bg-navy bg-opacity-80 backdrop-blur-sm transition-opacity duration-300"></div>
+        <div class="mobile-menu-content fixed top-0 right-0 w-11/12 max-w-md bg-navy text-white px-6 pt-6 pb-4 transform translate-x-full transition-all duration-300 ease-in-out">
+            <div class="flex justify-between items-center mb-6">
+                <a href="#home" class="flex items-center" aria-label="GlobalFreight Home">
+                    <svg class="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="#F4B324" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 110 20 10 10 0 010-20zm0 0v4m0 0h4m-4 0h-4m6 2l2 2m-8-2l-2 2m2 6l2 2m-2-2l-2-2" />
+                        <rect x="4" y="12" width="16" height="6" rx="1" fill="#FFFFFF" />
+                    </svg>
+                    <span class="text-lg font-extrabold">GlobalFreight</span>
+                </a>
+                <button id="mobile-menu-close" class="focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Close mobile menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <a href="#home" class="block hover:text-gold font-semibold text-base transition-colors duration-200">Home</a>
+                <a href="#tracking" class="block hover:text-gold font-semibold text-base transition-colors duration-200">Track</a>
+                <!-- Mobile Services Menu -->
+                <div>
+                    <button id="mobile-services-menu" class="block hover:text-gold font-semibold text-base flex items-center w-full text-left focus:outline-none focus:ring-2 focus:ring-gold" aria-haspopup="true" aria-expanded="false" aria-controls="mobile-services-submenu">
+                        Services
+                        <svg class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="mobile-services-submenu" class="hidden pl-4 space-y-2 mt-2 animate-submenu-slide" aria-labelledby="mobile-services-menu">
+                        <a href="#services-air" class="block hover:text-gold text-sm transition-colors duration-200">Air Freight</a>
+                        <a href="#services-sea" class="block hover:text-gold text-sm transition-colors duration-200">Sea Freight</a>
+                        <a href="#services-land" class="block hover:text-gold text-sm transition-colors duration-200">Land Transport</a>
+                        <a href="#services-customs" class="block hover:text-gold text-sm transition-colors duration-200">Customs Clearance</a>
+                    </div>
+                </div>
+                <!-- Mobile Why GlobalFreight Menu -->
+                <div>
+                    <button id="mobile-why-menu" class="block hover:text-gold font-semibold text-base flex items-center w-full text-left focus:outline-none focus:ring-2 focus:ring-gold" aria-haspopup="true" aria-expanded="false" aria-controls="mobile-why-submenu">
+                        Why GlobalFreight
+                        <svg class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="mobile-why-submenu" class="hidden pl-4 space-y-2 mt-2 animate-submenu-slide" aria-labelledby="mobile-why-menu">
+                        <a href="#why-success" class="block hover:text-gold text-sm transition-colors duration-200">Success Stories</a>
+                        <a href="#why-sustainability" class="block hover:text-gold text-sm transition-colors duration-200">Sustainability</a>
+                    </div>
+                </div>
+                <a href="#quote" class="block hover:text-gold font-semibold text-base transition-colors duration-200">Get a Quote</a>
+                <a href="#contact" class="block hover:text-gold font-semibold text-base transition-colors duration-200">Contact</a>
+                <a href="#client-portal" class="block bg-gold text-navy font-semibold py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors duration-200 text-base">Client Portal</a>
+                <!-- Mobile Certifications Badge -->
+                <span class="block text-xs font-medium bg-white text-navy px-2 py-1 rounded-md shadow-sm mt-2">ISO 9001 Certified</span>
+            </div>
+        </div>
+    </div>
+</nav>
+    <!-- Home Section -->
+    <section id="home" class="relative bg-navy text-white h-[calc(100vh-4rem)] bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1700114339471-9e90a155d4b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bG9naXN0aWNzJTIwZnJlaWdodCUyMGNhcmdvfGVufDB8fDB8fHww')">
+        <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" style="background: rgba(0,0,0,0.4);"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex items-center justify-center h-full">
+            <div>
+                <div class="relative min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] lg:min-h-[7rem]" aria-live="polite">
+                    <h1 id="hero-headline-1" class="font-extrabold text-white absolute top-0 left-0 right-0 line-clamp-2 transition-opacity duration-500 opacity-1">Global Logistics You Can Trust</h1>
+                    <h1 id="hero-headline-2" class="font-extrabold text-white absolute top-0 left-0 right-0 line-clamp-2 transition-opacity duration-500 opacity-0 hidden">Seamless Cargo Solutions Worldwide</h1>
+                </div>
+                <p class="my-8 max-w-2xl mx-auto text-white animate-fade-in leading-tight">Tailored freight forwarding, trucking, and customs solutions.</p>
+                <div class="flex items-center justify-center mb-8 animate-fade-in-up">
+                    <div class="flex items-center bg-navy/20 px-4 py-2 rounded-lg">
+                        <svg class="w-6 h-6 mr-2 text-gold animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="text-base sm:text-lg md:text-xl text-white">Trusted by 20,000+ businesses worldwide</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#quote" class="inline-block bg-gradient-to-r from-gold to-yellow-500 text-navy font-semibold py-5 px-14 rounded-xl hover:bg-yellow-500 hover:scale-115 hover:shadow-glow transition-all duration-300 animate-slide-in" aria-label="Request a shipping quote">Get a Quote</a>
+                    <a href="#tracking" class="inline-block border-2 border-gold text-white font-semibold py-5 px-14 rounded-xl hover:bg-gold hover:text-navy hover:scale-115 hover:shadow-glow transition-all duration-300 animate-slide-in" aria-label="Track your shipment">Track Shipment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- Shipment Tracking Section -->
+        <section id="tracking" class="py-16 bg-gray-100" aria-labelledby="tracking-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-navy mb-8 text-center" id="tracking-heading">Track Your Shipment</h2>
+                <!-- Tracking Form -->
+                <form id="tracking-form" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md sm:max-w-lg lg:max-w-2xl" aria-describedby="tracking-description">
+                    <p id="tracking-description" class="text-base text-steel-gray mb-6">Enter your Waybill Number to monitor your shipment’s real-time status and journey.</p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="flex-1 relative">
+                            <label for="waybill-number" class="block text-sm font-semibold text-navy mb-2">Waybill Number</label>
+                            <input
+                                type="text"
+                                id="waybill-number"
+                                name="waybill-number"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-gold focus:border-gold text-sm transition-transform duration-200 focus:scale-[1.02]"
+                                placeholder="GFRT-123456-USA"
+                                required
+                                aria-required="true"
+                                aria-describedby="waybill-hint tracking-error"
+                            >
+                            <p id="waybill-hint" class="text-xs text-steel-gray mt-1">Format: GFRT-######-XXX (e.g., GFRT-123456-USA)</p>
+                        </div>
+                        <div class="flex items-end gap-3">
+                            <button
+                                type="button"
+                                class="w-full sm:w-auto bg-maritime-blue text-white px-8 py-3 rounded-md hover:bg-yellow-500 hover:text-navy transition-colors duration-200 font-semibold text-sm min-w-[120px] focus:ring-2 focus:ring-gold"
+                                onclick="trackShipment()"
+                                aria-label="Track shipment"
+                            >
+                                Track
+                            </button>
+                            <button
+                                type="button"
+                                class="w-full sm:w-auto bg-gray-200 text-navy px-8 py-3 rounded-md hover:bg-gray-300 transition-colors duration-200 font-semibold text-sm min-w-[120px] focus:ring-2 focus:ring-gold hidden"
+                                id="clear-button"
+                                onclick="clearTracking()"
+                                aria-label="Clear tracking form and results"
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                    <div id="tracking-error" class="hidden text-sm text-red-600 mt-3 animate-shake" role="alert" aria-live="assertive">
+                        <p>Please enter a valid Waybill Number (e.g., GFRT-123456-USA).</p>
+                        <button type="button" class="underline text-red-600 hover:text-red-800" onclick="contactSupport()">Contact Support</button>
+                    </div>
+                </form>
+                <!-- Tracking Result -->
+                <div id="tracking-result" class="mt-10 max-w-4xl mx-auto hidden" aria-live="assertive">
+                    <div class="bg-white p-8 rounded-lg shadow-md animate-fade-slide">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-semibold text-navy">Shipment Overview</h3>
+                            <div class="flex gap-3">
+                                <button
+                                    type="button"
+                                    class="bg-gold text-navy px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold"
+                                    onclick="downloadReport()"
+                                    aria-label="Download shipment report"
+                                >
+                                    Download Report
+                                </button>
+                                <button
+                                    type="button"
+                                    class="bg-maritime-blue text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold"
+                                    id="toggle-timeline"
+                                    aria-label="Toggle shipment journey timeline"
+                                    aria-expanded="true"
+                                >
+                                    Hide Timeline
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Shipment Overview -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="shipment-overview">
+                            <div>
+                                <p class="text-sm font-semibold text-navy">Waybill Number</p>
+                                <p class="text-base text-steel-gray" id="shipment-waybill">GFRT-123456-USB</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-navy">Transit Status</p>
+                                <p class="text-base text-steel-gray" id="shipment-status">In Transit</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-navy">ETA</p>
+                                <p class="text-base text-steel-gray" id="shipment-eta">August 5, 2025</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-navy">Last Checkpoint</p>
+                                <p class="text-base text-steel-gray" id="shipment-checkpoint">Port of Singapore, 2025-07-24 09:15 UTC</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-navy">Carrier Reference</p>
+                                <p class="text-base text-steel-gray" id="shipment-carrier-ref">MSK-V12345</p>
+                            </div>
+                        </div>
+                        <!-- Shipment Journey -->
+                        <div id="timeline-section" class="mb-8" role="region" aria-labelledby="timeline-heading">
+                            <h4 class="text-lg font-semibold text-navy mb-4" id="timeline-heading">Shipment Journey</h4>
+                            <div class="relative">
+                                <div class="flex justify-between items-center overflow-x-auto pb-2">
+                                    <button
+                                        class="flex-1 text-center focus:outline-none focus:ring-2 focus:ring-gold"
+                                        data-status="Booked"
+                                        aria-label="View Booked checkpoint details"
+                                        aria-current="true"
+                                    >
+                                        <div class="w-4 h-4 rounded-full bg-gold mx-auto mb-2 checkpoint active animate-checkpoint-pulse"></div>
+                                        <p class="text-sm text-steel-gray">Booked</p>
+                                    </button>
+                                    <button
+                                        class="flex-1 text-center focus:outline-none focus:ring-2 focus:ring-gold"
+                                        data-status="In Transit"
+                                        aria-label="View In Transit checkpoint details"
+                                    >
+                                        <div class="w-4 h-4 rounded-full bg-gray-50 mx-auto mb-2 checkpoint border border-gray-200"></div>
+                                        <p class="text-sm text-steel-gray">In Transit</p>
+                                    </button>
+                                    <button
+                                        class="flex-1 text-center focus:outline-none focus:ring-2 focus:ring-gold"
+                                        data-status="Customs Cleared"
+                                        aria-label="View Customs Cleared checkpoint details"
+                                    >
+                                        <div class="w-4 h-4 rounded-full bg-gray-50 mx-auto mb-2 checkpoint border border-gray-200"></div>
+                                        <p class="text-sm text-steel-gray">Customs Cleared</p>
+                                    </button>
+                                    <button
+                                        class="flex-1 text-center focus:outline-none focus:ring-2 focus:ring-gold"
+                                        data-status="Out for Delivery"
+                                        aria-label="View Out for Delivery checkpoint details"
+                                    >
+                                        <div class="w-4 h-4 rounded-full bg-gray-50 mx-auto mb-2 checkpoint border border-gray-200"></div>
+                                        <p class="text-sm text-steel-gray">Out for Delivery</p>
+                                    </button>
+                                    <button
+                                        class="flex-1 text-center focus:outline-none focus:ring-2 focus:ring-gold"
+                                        data-status="Delivered"
+                                        aria-label="View Delivered checkpoint details"
+                                    >
+                                        <div class="w-4 h-4 rounded-full bg-gray-50 mx-auto mb-2 checkpoint border border-gray-200"></div>
+                                        <p class="text-sm text-steel-gray">Delivered</p>
+                                    </button>
+                                </div>
+                                <div class="absolute top-2 left-[10%] right-[10%] h-1 bg-gray-200">
+                                    <div id="progress-bar" class="h-1 bg-gold animate-progress-fill" style="--progress-width: 20%;"></div>
+                                </div>
+                            </div>
+                            <div id="checkpoint-details" class="mt-4 space-y-2" aria-label="Checkpoint history"></div>
+                        </div>
+                        <!-- Additional Details -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-navy mb-4">Additional Details</h4>
+                            <div class="overflow-x-auto">
+                                <table id="shipment-details-table" class="w-full text-sm text-left text-steel-gray border border-gray-200">
+                                    <thead class="text-xs text-navy uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">Origin</th>
+                                            <th scope="col" class="px-6 py-3">Destination</th>
+                                            <th scope="col" class="px-6 py-3">Carrier</th>
+                                            <th scope="col" class="px-6 py-3">Shipment Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-200 px-6 py-3" id="shipment-origin">Shanghai, China</td>
+                                            <td class="border border-gray-200 px-6 py-3" id="shipment-destination">Los Angeles, CA</td>
+                                            <td class="border border-gray-200 px-6 py-3" id="shipment-carrier">Maersk</td>
+                                            <td class="border border-gray-200 px-6 py-3" id="shipment-type">Sea Freight</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Loading State -->
+                <div id="loading" class="hidden mt-10 text-center" aria-hidden="true">
+                    <svg class="inline-block w-12 h-12 animate-spin text-gold" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="8" fill="none" stroke-dasharray="150 50" stroke-linecap="round" />
+                    </svg>
+                    <p class="mt-3 text-base text-steel-gray" aria-live="polite">Retrieving Shipment Data...</p>
+                </div>
+                <!-- Timeout Error -->
+                <div id="timeout-error" class="hidden mt-6 max-w-md mx-auto bg-white p-6 rounded-lg shadow-md text-center" role="alert" aria-live="assertive">
+                    <p class="text-sm text-red-600 mb-4">Unable to retrieve shipment data due to a timeout. Please try again.</p>
+                    <button
+                        type="button"
+                        class="bg-maritime-blue text-white px-6 py-2 rounded-md hover:bg-yellow-500 hover:text-navy transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold"
+                        onclick="retry()"
+                        aria-label="Retry tracking shipment"
+                    >
+                        Retry
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Services Section -->
+        <section id="services" class="py-16 bg-gray-50" aria-labelledby="services-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-navy mb-8 text-center" id="services-heading">From Factory Floor to Customer Door</h2>
+                <p class="text-base text-steel-gray mb-12 max-w-3xl mx-auto text-center">Explore our comprehensive logistics solutions designed to meet your global cargo needs with reliability and efficiency.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide" data-service="air">
+                        <svg class="w-10 h-10 text-gold mb-4" fill="none" stroke="#F4B324" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5" />
+                        </svg>
+                        <h3 class="text-xl font-semibold text-navy mb-2">Air Freight</h3>
+                        <p class="text-sm text-steel-gray mb-4">Swift global deliveries for time-sensitive cargo like electronics and pharmaceuticals.</p>
+                        <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-service="air" aria-label="Learn more about Air Freight">Learn More</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide" data-service="sea">
+                        <svg class="w-10 h-10 text-gold mb-4" fill="none" stroke="#F4B324" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <h3 class="text-xl font-semibold text-navy mb-2">Sea Freight</h3>
+                        <p class="text-sm text-steel-gray mb-4">Cost-effective ocean transport for bulk cargo like raw materials and consumer goods.</p>
+                        <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-service="sea" aria-label="Learn more about Sea Freight">Learn More</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide" data-service="land">
+                        <svg class="w-10 h-10 text-gold mb-4" fill="none" stroke="#F4B324" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                        </svg>
+                        <h3 class="text-xl font-semibold text-navy mb-2">Land Transport</h3>
+                        <p class="text-sm text-steel-gray mb-4">Efficient road and rail solutions for domestic and cross-border shipments.</p>
+                        <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-service="land" aria-label="Learn more about Land Transport">Learn More</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide" data-service="customs">
+                        <svg class="w-10 h-10 text-gold mb-4" fill="none" stroke="#F4B324" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                        <h3 class="text-xl font-semibold text-navy mb-2">Customs Clearance</h3>
+                        <p class="text-sm text-steel-gray mb-4">Hassle-free compliance with global customs regulations.</p>
+                        <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-service="customs" aria-label="Learn more about Customs Clearance">Learn More</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Service Modals -->
+            <div id="service-modal" class="fixed inset-0 bg-navy bg-opacity-80 backdrop-blur-sm hidden flex items-center justify-center z-50" aria-hidden="true">
+                <div class="bg-white rounded-lg max-w-2xl w-full mx-4 p-8 relative transform animate-modal-slide" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+                    <button id="modal-close" class="absolute top-4 right-4 text-navy hover:text-gold focus:ring-2 focus:ring-gold" aria-label="Close modal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <h3 id="modal-heading" class="text-2xl font-semibold text-navy mb-4"></h3>
+                    <img id="modal-image" src="" alt="" class="w-full h-48 object-cover rounded-md mb-4 hidden" loading="lazy">
+                    <p id="modal-description" class="text-base text-steel-gray mb-6"></p>
+                    <div id="modal-benefits" class="mb-6">
+                        <h4 class="text-lg font-semibold text-navy mb-2">Key Benefits</h4>
+                        <ul class="list-disc pl-5 text-sm text-steel-gray"></ul>
+                    </div>
+                    <div id="modal-use-cases" class="mb-6">
+                        <h4 class="text-lg font-semibold text-navy mb-2">Use Cases</h4>
+                        <ul class="list-disc pl-5 text-sm text-steel-gray"></ul>
+                    </div>
+                    <div class="flex justify-end gap-4">
+                        <a id="modal-quote" href="#quote" class="bg-gold text-navy px-6 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Request a quote">Get a Quote</a>
+                        <a id="modal-contact" href="#contact" class="bg-maritime-blue text-white px-6 py-2 rounded-md hover:bg-yellow-500 hover:text-navy transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Contact us">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About GlobalFreight Section -->
+        <section id="about" class="py-16 bg-gray-100" aria-labelledby="about-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- Image -->
+                    <div class="order-1 lg:order-2">
+                        <img
+                            src="https://images.unsplash.com/photo-1544944399-af27c461e488?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fEJ1c3klMjBwb3J0JTIwd2l0aCUyMGNhcmdvJTIwY29udGFpbmVycyUyMGFuZCUyMGNyYW5lc3xlbnwwfHwwfHx8MA%3D%3D"
+                            alt="Busy port with cargo containers and cranes"
+                            class="w-full h-64 lg:h-96 object-cover rounded-lg shadow-md"
+                            loading="lazy"
+                        >
+                    </div>
+                    <!-- Text Content -->
+                    <div class="order-2 lg:order-1">
+                        <h2 class="text-4xl lg:text-5xl font-extrabold text-navy mb-6" id="about-heading">About GlobalFreight</h2>
+                        <p class="text-base text-steel-gray mb-6">Founded in 2005, GlobalFreight delivers seamless logistics solutions across 50+ countries, connecting supply chains with precision and reliability. Our mission is to empower businesses with efficient, transparent, and scalable cargo transport.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                            <div class="text-center">
+                                <h3 class="text-2xl font-semibold text-navy">50+</h3>
+                                <p class="text-sm text-steel-gray">Countries Served</p>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-2xl font-semibold text-navy">100+</h3>
+                                <p class="text-sm text-steel-gray">Global Hubs</p>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-2xl font-semibold text-navy">10,000+</h3>
+                                <p class="text-sm text-steel-gray">Monthly Shipments</p>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <a href="#contact" class="inline-block bg-gold text-navy px-6 py-3 rounded-md hover:bg-yellow-500 hover:scale-105 transition-all duration-300 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Contact us to learn more">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Why GlobalFreight Section -->
+        <section id="why-globalfreight" class="py-16 bg-gray-50" aria-labelledby="why-globalfreight-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-navy mb-8 text-center" id="why-globalfreight-heading">Why Choose GlobalFreight</h2>
+                <p class="text-base text-steel-gray mb-12 max-w-3xl mx-auto text-center">Discover how our proven track record and commitment to sustainability set us apart in delivering world-class logistics solutions.</p>
+                <!-- Success Stories -->
+                <div id="why-success" class="mb-16" aria-labelledby="success-stories-heading">
+                    <h3 class="text-2xl font-semibold text-navy mb-6 text-center" id="success-stories-heading">Our Success Stories</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide flex flex-col lg:flex-row items-center gap-4" data-case="electronics">
+                            <img src="https://images.pexels.com/photos/4483942/pexels-photo-4483942.jpeg" alt="Electronics supply chain logistics" class="w-full lg:w-1/3 h-32 object-cover rounded-md">
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold text-navy mb-2">Electronics Supply Chain</h4>
+                                <p class="text-sm text-steel-gray mb-4">Streamlined air freight for a tech giant, reducing delivery times by 30% across 20 countries.</p>
+                                <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-case="electronics" aria-label="Learn more about Electronics Supply Chain success story">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide flex flex-col lg:flex-row items-center gap-4" data-case="pharma">
+                            <img src="img/ph.jpeg" alt="Pharmaceutical logistics cold chain" class="w-full lg:w-1/3 h-32 object-cover rounded-md">
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold text-navy mb-2">Pharmaceutical Logistics</h4>
+                                <p class="text-sm text-steel-gray mb-4">Ensured cold-chain compliance for vaccine shipments, saving $500K in customs delays.</p>
+                                <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-case="pharma" aria-label="Learn more about Pharmaceutical Logistics success story">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fade-slide flex flex-col lg:flex-row items-center gap-4" data-case="automotive">
+                            <img src="https://images.pexels.com/photos/33224102/pexels-photo-33224102.jpeg" alt="Automotive parts delivery" class="w-full lg:w-1/3 h-32 object-cover rounded-md">
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold text-navy mb-2">Automotive Parts Delivery</h4>
+                                <p class="text-sm text-steel-gray mb-4">Optimized multi-modal transport for just-in-time delivery, boosting production efficiency by 25%.</p>
+                                <button class="text-gold font-semibold hover:underline focus:ring-2 focus:ring-gold rounded-md px-2 py-1" data-case="automotive" aria-label="Learn more about Automotive Parts Delivery success story">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sustainability -->
+                <div id="why-sustainability" class="lg:grid lg:grid-cols-2 lg:gap-8 items-center" aria-labelledby="sustainability-heading">
+                    <div class="mb-8 lg:mb-0">
+                        <img src="https://images.pexels.com/photos/4744753/pexels-photo-4744753.jpeg" alt="Sustainable logistics with eco-friendly transport" class="w-full h-64 lg:h-96 object-cover rounded-lg shadow-md animate-fade-slide" loading="lazy">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-navy mb-6" id="sustainability-heading">Our Commitment to Sustainability</h3>
+                        <p class="text-base text-steel-gray mb-6">At GlobalFreight, we’re dedicated to reducing our environmental impact while delivering world-class logistics. Our sustainability initiatives ensure eco-friendly solutions for your supply chain.</p>
+                        <ul class="list-disc pl-5 text-sm text-steel-gray mb-6">
+                            <li class="mb-2">Achieved 15% CO2 reduction in 2024 through fuel-efficient fleets and optimized routing.</li>
+                            <li class="mb-2">Offer carbon-neutral shipping options via certified offset programs for all transport modes.</li>
+                            <li>Partner with eco-conscious carriers to minimize waste and promote recyclable packaging.</li>
+                        </ul>
+                        <a href="#quote" class="inline-block bg-gold text-navy px-6 py-3 rounded-md hover:bg-yellow-500 hover:scale-105 transition-all duration-300 font-semibold text-sm focus:ring-2 focus:ring-gold animate-fade-slide" aria-label="Request a sustainable shipping quote">Explore Sustainable Solutions</a>
+                    </div>
+                </div>
+                <!-- Success Story Modals -->
+                <div id="success-story-modal" class="fixed inset-0 bg-navy bg-opacity-80 backdrop-blur-sm hidden flex items-center justify-center z-50" aria-hidden="true">
+                    <div class="bg-white rounded-lg max-w-2xl w-full mx-4 p-8 relative transform animate-modal-slide modal-content" role="dialog" aria-modal="true" aria-labelledby="success-modal-heading">
+                        <button id="success-modal-close" class="absolute top-4 right-4 text-navy hover:text-gold focus:ring-2 focus:ring-gold" aria-label="Close success story modal">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        <h3 id="success-modal-heading" class="text-2xl font-semibold text-navy mb-4"></h3>
+                        <p id="success-modal-quote" class="text-base italic text-steel-gray mb-4 border-l-4 border-gold pl-4"></p>
+                        <p id="success-modal-description" class="text-base text-steel-gray mb-6"></p>
+                        <div id="success-modal-results" class="mb-6">
+                            <h4 class="text-lg font-semibold text-navy mb-2">Key Results</h4>
+                            <ul class="list-disc pl-5 text-sm text-steel-gray"></ul>
+                        </div>
+                        <div id="success-modal-industries" class="mb-6">
+                            <h4 class="text-lg font-semibold text-navy mb-2">Industries Served</h4>
+                            <ul class="list-disc pl-5 text-sm text-steel-gray"></ul>
+                        </div>
+                        <div class="flex justify-end gap-4">
+                            <a id="success-modal-quote" href="#quote" class="bg-gold text-navy px-6 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Request a quote">Get a Quote</a>
+                            <a id="success-modal-contact" href="#contact" class="bg-maritime-blue text-white px-6 py-2 rounded-md hover:bg-yellow-500 hover:text-navy transition-colors duration-200 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Contact us">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Quote Section -->
+        <section id="quote" class="py-16 bg-gray-50" aria-labelledby="quote-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-extrabold text-navy mb-6 text-center" id="quote-heading">Get Your Quote</h2>
+                <p class="text-base text-steel-gray mb-12 max-w-3xl mx-auto text-center animate-fade-slide">Request a tailored logistics quote in minutes. Our team will provide a competitive solution for your shipping needs.</p>
+                <form class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-8 rounded-lg shadow-md" novalidate>
+                    <div class="col-span-1 md:col-span-2">
+                        <h3 class="text-xl font-semibold text-navy mb-4">Your Contact Information</h3>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="quote-name" class="block text-sm font-semibold text-navy mb-2">Full Name</label>
+                        <input type="text" id="quote-name" name="name" required class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-steel-gray" placeholder="Enter your full name" aria-required="true">
+                    </div>
+                    <div class="col-span-1">
+                        <label for="quote-email" class="block text-sm font-semibold text-navy mb-2">Email Address</label>
+                        <input type="email" id="quote-email" name="email" required class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-steel-gray" placeholder="Enter your email" aria-required="true">
+                    </div>
+                    <div class="col-span-1">
+                        <label for="quote-company" class="block text-sm font-semibold text-navy mb-2">Company Name</label>
+                        <input type="text" id="quote-company" name="company" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-steel-gray" placeholder="Enter your company name">
+                    </div>
+                    <div class="col-span-1 md:col-span-2">
+                        <h3 class="text-xl font-semibold text-navy mb-4">Shipment Details</h3>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="quote-shipment-type" class="block text-sm font-semibold text-navy mb-2">Shipment Type</label>
+                        <select id="quote-shipment-type" name="shipment-type" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-steel-gray" aria-label="Select shipment type">
+                            <option value="" disabled selected>Select shipment type</option>
+                            <option value="air">Air Freight</option>
+                            <option value="sea">Sea Freight</option>
+                            <option value="land">Land Transport</option>
+                            <option value="customs">Customs Clearance</option>
+                        </select>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="quote-urgency" class="block text-sm font-semibold text-navy mb-2">Shipment Urgency</label>
+                        <select id="quote-urgency" name="urgency" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-steel-gray" aria-label="Select shipment urgency">
+                            <option value="" disabled selected>Select urgency</option>
+                            <option value="standard">Standard</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="col-span-1 flex items-center">
+                        <input type="checkbox" id="quote-sustainable" name="sustainable" class="h-4 w-4 text-gold border-gray-200 focus:ring-gold rounded" aria-label="Request sustainable shipping options">
+                        <label for="quote-sustainable" class="ml-2 text-sm font-semibold text-navy">Request Sustainable Shipping</label>
+                    </div>
+                    <div class="col-span-1 md:col-span-2">
+                        <label for="quote-message" class="block text-sm font-semibold text-navy mb-2">Additional Details</label>
+                        <textarea id="quote-message" name="message" rows="4" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-steel-gray" placeholder="Provide shipment details (e.g., weight, dimensions, destination)" aria-label="Additional shipment details"></textarea>
+                    </div>
+                    <div class="col-span-1 md:col-span-2 text-center">
+                        <button type="submit" onclick="submitQuote()" class="bg-gold text-navy px-6 py-3 rounded-md hover:bg-yellow-500 hover:scale-105 transition-all duration-300 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Submit quote request">Submit Quote</button>
+                    </div>
+                    <div id="quote-error" class="col-span-1 md:col-span-2 text-center text-sm text-red-600 hidden" role="alert">Please fill out all required fields correctly.</div>
+                </form>
+            </div>
+        </section>
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-maritime-blue text-white" aria-labelledby="contact-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-center" id="contact-heading">Contact Us</h2>
+                <p class="text-base mb-12 max-w-3xl mx-auto text-center animate-fade-slide">Reach out to our global team for expert logistics support. We’re here to answer your questions and tailor solutions to your needs.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <form class="max-w-xl mx-auto lg:mx-0 w-full grid grid-cols-1 gap-6 bg-white p-8 rounded-lg shadow-md text-navy" novalidate>
+                        <div>
+                            <h3 class="text-xl font-semibold text-navy mb-4">Your Information</h3>
+                        </div>
+                        <div>
+                            <label for="contact-name" class="block text-sm font-semibold mb-2">Full Name</label>
+                            <input type="text" id="contact-name" name="name" required class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm" placeholder="Enter your full name" aria-required="true">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-semibold mb-2">Email Address</label>
+                            <input type="email" id="contact-email" name="email" required class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm" placeholder="Enter your email" aria-required="true">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-navy mb-4">Inquiry Details</h3>
+                        </div>
+                        <div>
+                            <label for="contact-department" class="block text-sm font-semibold mb-2">Department</label>
+                            <select id="contact-department" name="department" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm" aria-label="Select department">
+                                <option value="" disabled selected>Select department</option>
+                                <option value="sales">Sales</option>
+                                <option value="support">Customer Support</option>
+                                <option value="billing">Billing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="contact-reason" class="block text-sm font-semibold mb-2">Reason for Contact</label>
+                            <select id="contact-reason" name="reason" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm" aria-label="Select reason for contact">
+                                <option value="" disabled selected>Select reason</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="quote">Quote Follow-Up</option>
+                                <option value="support">Support Request</option>
+                                <option value="feedback">Feedback</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-sm font-semibold mb-2">Message</label>
+                            <textarea id="contact-message" name="message" rows="4" class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm" placeholder="Your message or inquiry" aria-label="Your message"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" onclick="submitContact()" class="bg-gold text-navy px-6 py-3 rounded-md hover:bg-yellow-500 hover:scale-105 transition-all duration-300 font-semibold text-sm focus:ring-2 focus:ring-gold" aria-label="Submit contact form">Send Message</button>
+                        </div>
+                        <div id="contact-error" class="text-center text-sm text-red-600 hidden" role="alert">Please fill out all required fields correctly.</div>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-2xl font-semibold mb-4 animate-fade-slide">Get in Touch</h3>
+                        <ul class="text-base text-gray-200 mb-6 space-y-4 animate-fade-slide">
+                            <li><strong>Phone:</strong> +1 (800) 555-1234</li>
+                            <li><strong>Email:</strong> <a href="mailto:info@globalfreight.com" class="hover:text-gold transition-colors duration-200">info@globalfreight.com</a></li>
+                            <li><strong>Global HQ:</strong> 123 Maritime Way, Singapore 048961</li>
+                            <li><strong>US Office:</strong> 456 Ocean Drive, Los Angeles, CA 90001</li>
+                        </ul>
+                        <div class="flex justify-center lg:justify-start gap-4 animate-fade-slide">
+                            <a href="https://linkedin.com/company/globalfreight" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-gold transition-colors duration-200" aria-label="Visit GlobalFreight on LinkedIn">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-1.337-.026-3.058-1.867-3.058-1.867 0-2.152 1.459-2.152 2.966v5.696h-3v-11h2.883v1.509h.041c.401-.76 1.385-1.559 2.85-1.559 3.047 0 3.611 2.005 3.611 4.611v6.439z"/></svg>
+                            </a>
+                            <a href="https://x.com/globalfreight" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-gold transition-colors duration-200" aria-label="Visit GlobalFreight on Twitter/X">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer Section -->
+        <footer class="bg-navy text-white py-12" aria-label="Footer">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">GlobalFreight</h3>
+                        <p class="text-sm text-gray-200 mb-4">Delivering seamless logistics solutions worldwide since 2005.</p>
+                        <p class="text-sm text-gray-200">Global HQ: 123 Maritime Way, Singapore 048961</p>
+                        <p class="text-sm text-gray-200">US Office: 456 Ocean Drive, Los Angeles, CA 90001</p>
+                    </div>
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2 text-sm text-gray-200">
+                            <li><a href="#home" class="hover:text-gold transition-colors duration-200">Home</a></li>
+                            <li><a href="#tracking" class="hover:text-gold transition-colors duration-200">Track Shipment</a></li>
+                            <li><a href="#services" class="hover:text-gold transition-colors duration-200">Services</a></li>
+                            <li><a href="#why-globalfreight" class="hover:text-gold transition-colors duration-200">Why GlobalFreight</a></li>
+                            <li><a href="#quote" class="hover:text-gold transition-colors duration-200">Get a Quote</a></li>
+                            <li><a href="#contact" class="hover:text-gold transition-colors duration-200">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- Compliance Links -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                        <ul class="space-y-2 text-sm text-gray-200">
+                            <li><a href="/privacy-policy" class="hover:text-gold transition-colors duration-200">Privacy Policy</a></li>
+                            <li><a href="/terms-of-service" class="hover:text-gold transition-colors duration-200">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <!-- Newsletter Signup -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Stay Updated</h3>
+                        <p class="text-sm text-gray-200 mb-4">Subscribe to our newsletter for logistics insights and updates.</p>
+                        <form class="flex flex-col sm:flex-row gap-3" novalidate>
+                            <input
+                                type="email"
+                                id="newsletter-email"
+                                name="email"
+                                class="w-full p-3 rounded-md border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold transition-colors duration-200 text-sm text-navy"
+                                placeholder="Enter your email"
+                                required
+                                aria-required="true"
+                                aria-describedby="newsletter-error"
+                            >
+                            <button
+                                type="submit"
+                                onclick="submitNewsletter()"
+                                class="bg-gold text-navy mt-2 px-6 py-3 rounded-md hover:bg-yellow-500 hover:scale-105 transition-all duration-300 font-semibold text-sm focus:ring-2 focus:ring-gold"
+                                aria-label="Subscribe to newsletter"
+                            >
+                                Subscribe
+                            </button>
+                        </form>
+                        <div id="newsletter-error" class="text-sm text-red-600 mt-3 hidden" role="alert">Please enter a valid email address.</div>
+                    </div>
+                </div>
+                <!-- Footer Bottom -->
+                <div class="mt-8 pt-8 border-t border-gray-200 text-center">
+                    <div class="flex justify-center gap-4 mb-4">
+                        <a href="https://linkedin.com/company/globalfreight" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-gold transition-colors duration-200" aria-label="Visit GlobalFreight on LinkedIn">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-1.337-.026-3.058-1.867-3.058-1.867 0-2.152 1.459-2.152 2.966v5.696h-3v-11h2.883v1.509h.041c.401-.76 1.385-1.559 2.85-1.559 3.047 0 3.611 2.005 3.611 4.611v6.439z"/>
+                            </svg>
+                        </a>
+                        <a href="https://x.com/globalfreight" target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-gold transition-colors duration-200" aria-label="Visit GlobalFreight on Twitter/X">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-200">&copy; 2025 GlobalFreight. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+/* Custom styles for GlobalFreight website (used with Tailwind CDN) */
+
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Accessibility focus states */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(244, 179, 36, 0.5); /* Gold focus ring */
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes textFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mobileMenuSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes mobileMenuSlideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes backdropFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes backdropFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes submenuSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 0 rgba(244, 179, 36, 0); }
+    to { box-shadow: 0 0 12px rgba(244, 179, 36, 0.6); }
+}
+
+@keyframes modalSlideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Animation classes */
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.6s ease-out forwards;
+}
+
+.animate-textFade-in {
+    animation: textFadeIn 0.5s ease-in-out forwards;
+}
+
+.animate-textFade-out {
+    animation: textFadeOut 0.5s ease-in-out forwards;
+}
+
+.group-hover\:animate-slide-down .group:hover {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+.mobile-menu-content:not(.hidden) {
+    animation: mobileMenuSlideIn 0.3s ease-in-out forwards;
+}
+
+.mobile-menu-content.hidden {
+    animation: mobileMenuSlideOut 0.3s ease-in-out forwards;
+}
+
+.mobile-menu-backdrop:not(.hidden) {
+    animation: backdropFadeIn 0.3s ease-in-out forwards;
+}
+
+.mobile-menu-backdrop.hidden {
+    animation: backdropFadeOut 0.3s ease-in-out forwards;
+}
+
+.animate-submenu-slide:not(.hidden) {
+    animation: submenuSlide 0.2s ease-in-out forwards;
+}
+
+#service-modal:not(.hidden),
+#success-story-modal:not(.hidden) {
+    animation: fadeIn 0.3s ease-out;
+}
+
+#service-modal .modal-content,
+#success-story-modal .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .animate-slide-in, .animate-fade-in, .animate-fade-in-up, .animate-progress-fill, .animate-checkpoint-pulse, .animate-shake, .animate-textFade-in, .animate-textFade-out, .animate-pulse, .group-hover-animate-slide-down, .animate-modal-slide, .hover\:scale-, .mobile-menu-content, .mobile-menu-content.hidden, .mobile-menu-backdrop, .mobile-menu-backdrop.hidden, .animate-submenu-slide {
+        animation: none !important;
+        transition: none !important;
+    }
+    input:focus-visible {
+        transform: none !important;
+    }
+    #hero-headline-1, #hero-headline-2, #service-modal, #service-modal .modal-content, #success-story-modal, #success-story-modal .modal-content {
+        animation: none !important;
+        transition: none !important;
+    }
+    .hover\:scale-105:hover, .hover\:scale-115:hover {
+        transform: none !important;
+    }
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hero section styles */
+#home {
+    position: relative;
+    background-color: #091C4F; /* Tailwind navy */
+}
+
+#home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+#hero-headline-1, #hero-headline-2 {
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    line-height: 1.2;
+}
+
+#hero-headline-1.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#hero-headline-1:not(.active) {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#hero-headline-2.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#hero-headline-2:not(.active) {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Navbar styles */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: #091C4F; /* Tailwind navy */
+}
+
+nav .group:hover .group-hover\:block {
+    display: block;
+}
+
+nav .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+}
+
+nav .group:hover .group-hover\:animate-slide-down {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Mobile menu styles */
+#mobile-menu {
+    visibility: hidden;
+    transition: visibility 0s linear 0.3s;
+}
+
+#mobile-menu:not(.hidden) {
+    visibility: visible;
+    transition: visibility 0s linear;
+}
+
+#mobile-menu .mobile-menu-content {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#mobile-menu button[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease-out;
+}
+
+#mobile-menu button[aria-expanded="false"] svg {
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-out;
+}
+
+/* Responsive hero and navbar adjustments */
+@media (min-width: 768px) and (max-width: 1250px) {
+    nav .max-w-8xl {
+        max-width: 90%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    nav .space-x-4 {
+        gap: 0.75rem;
+    }
+    nav .text-base {
+        font-size: 0.9rem;
+    }
+    nav .w-64 {
+        width: 14rem;
+    }
+    nav .w-36 {
+        width: 8rem;
+    }
+    nav .py-2\.px-4 {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 767px) {
+    nav .h-16 {
+        height: 4rem;
+    }
+    nav .w-10.h-10 {
+        width: 2rem;
+        height: 2rem;
+    }
+    nav .text-xl {
+        font-size: 1.125rem;
+    }
+    nav .mobile-menu-content {
+        width: 100%;
+        max-width: 24rem;
+    }
+}
+
+@media (max-width: 320px) {
+    #hero-headline-1, #hero-headline-2 {
+        font-size: clamp(1.5rem, 5vw, 2rem) !important;
+    }
+    #home p {
+        font-size: 0.875rem !important;
+        line-height: 1.3;
+    }
+    #home .gap-4 {
+        gap: 1rem !important;
+    }
+    #home .py-5.px-14 {
+        padding: 0.75rem 2rem !important;
+        font-size: 0.875rem !important;
+    }
+    nav .mobile-menu-content {
+        max-width: 16rem;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 639px) {
+    #hero-headline-1, #hero-headline-2 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem) !important;
+    }
+    #home p {
+        font-size: 1rem !important;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    #hero-headline-1, #hero-headline-2 {
+        font-size: clamp(2rem, 5vw, 2.8rem) !important;
+    }
+    #home p {
+        font-size: 1.1rem !important;
+        line-height: 1.4;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    #hero-headline-1, #hero-headline-2 {
+        font-size: clamp(2.5rem, 5vw, 3rem) !important;
+    }
+    #home p {
+        font-size: 1.2rem !important;
+        line-height: 1.4;
+    }
+}
+
+@media (min-width: 1024px) {
+    #hero-headline-1, #hero-headline-2 {
+        font-size: clamp(3rem, 5vw, 3.5rem) !important;
+    }
+    #home p {
+        font-size: 1.3rem !important;
+        line-height: 1.4;
+    }
+}
+
+/* Sticky CTA styles */
+@media (min-width: 1024px) {
+    .sticky-cta {
+        animation: fadeIn 0.6s ease-out;
+    }
+}
+
+/* Tracking section styles */
+#tracking-result:not(.hidden) {
+    animation: fadeIn 0.6s ease-out;
+}
+
+#tracking table th,
+#tracking table td {
+    border: 1px solid #E5E7EB; /* Tailwind gray-200 */
+}
+
+#tracking table thead {
+    background-color: #F9FAFB; /* Tailwind gray-50 */
+}
+
+#tracking .checkpoint {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+#tracking button[data-status]:hover .checkpoint {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(244, 179, 36, 0.5);
+}
+
+#tracking .relative {
+    padding-top: 1rem;
+}
+
+#tracking .relative > div:first-child {
+    position: relative;
+    z-index: 10;
+}
+
+#tracking .relative .absolute {
+    top: 0.5rem;
+    left: calc(10% + 0.5rem);
+    right: calc(10% + 0.5rem);
+    z-index: 5;
+}
+
+/* Services section styles */
+#services .hover\:scale-105 {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+#services [data-service]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(244, 179, 36, 0.5);
+}
+
+/* Why GlobalFreight section styles */
+#why-globalfreight .hover\:scale-105 {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+#why-globalfreight [data-case]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(244, 179, 36, 0.5);
+}
+
+#why-globalfreight .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#why-globalfreight .list-disc li {
+    margin-bottom: 0.5rem;
+}
+
+#why-globalfreight img {
+    max-height: 24rem;
+    object-fit: cover;
+    transition: transform 0.3s ease-out;
+}
+
+@media (min-width: 1024px) {
+    #why-globalfreight img {
+        max-height: 32rem;
+    }
+}
+
+/* Quote section styles */
+#quote form input:invalid:focus,
+#quote form select:invalid:focus,
+#quote form textarea:invalid:focus {
+    border-color: #DC2626; /* Tailwind red-600 */
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+/* Contact section styles */
+#contact form input:invalid:focus,
+#contact form select:invalid:focus,
+#contact form textarea:invalid:focus {
+    border-color: #DC2626; /* Tailwind red-600 */
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+/* Footer section styles */
+footer svg {
+    transition: transform 0.2s ease-out;
+}
+
+footer a:hover svg {
+    transform: scale(1.1);
+}
+
+footer form input:invalid:focus {
+    border-color: #DC2626; /* Tailwind red-600 */
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+/* About section styles */
+#about img {
+    max-height: 24rem;
+    object-fit: cover;
+    transition: transform 0.3s ease-out;
+}
+
+#about .grid div {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+#about .grid div:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 1024px) {
+    #about img {
+        max-height: 32rem;
+    }
+}
+
+/* Responsive adjustments for other sections */
+@media (max-width: 320px) {
+    #tracking, #services, #why-globalfreight, #about, #quote, #contact, footer {
+        padding: 1rem !important;
+    }
+    #tracking .text-4xl, #services .text-4xl, #why-globalfreight .text-4xl, #about .text-4xl, #quote .text-4xl, #contact .text-4xl {
+        font-size: 1.8rem !important;
+    }
+    #services .text-5xl, #why-globalfreight .text-5xl, #about .text-5xl, #quote .text-5xl, #contact .text-5xl {
+        font-size: 2.2rem !important;
+    }
+    #tracking .text-2xl, #why-globalfreight .text-2xl, #contact .text-2xl {
+        font-size: 1.25rem !important;
+    }
+    #tracking .text-base, #quote .text-base, #contact .text-base, #why-globalfreight .text-base, #about .text-base {
+        font-size: 0.875rem !important;
+    }
+    #tracking .w-4.h-4 {
+        width: 0.5rem !important;
+        height: 0.5rem !important;
+    }
+    #tracking .px-6.py-3 {
+        padding: 0.5rem 0.75rem !important;
+    }
+    #tracking .min-w-[120px] {
+        min-width: 80px !important;
+    }
+    #services .p-6, #why-globalfreight .p-6 {
+        padding: 1rem !important;
+    }
+    #tracking .relative .absolute {
+        left: calc(10% + 0.25rem) !important;
+        right: calc(10% + 0.25rem) !important;
+    }
+    #services .text-2xl, #why-globalfreight .text-2xl, #contact .text-2xl {
+        font-size: 1.5rem !important;
+    }
+    #services .modal-content, #why-globalfreight .modal-content {
+        padding: 1.5rem !important;
+    }
+    #about img, #why-globalfreight img {
+        max-height: 16rem !important;
+    }
+    #services svg, #why-globalfreight svg, footer svg {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+    }
+    #quote form, #contact form {
+        gap: 0.75rem !important;
+    }
+    #quote input, #quote select, #quote textarea, #contact input, #contact select, #contact textarea, footer input {
+        padding: 0.5rem !important;
+        font-size: 0.875rem !important;
+    }
+    #quote button, #contact button, footer button {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 639px) {
+    #tracking .flex-col {
+        gap: 0.75rem !important;
+    }
+    #tracking .md\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+    #tracking .px-8 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    #tracking table {
+        font-size: 0.75rem !important;
+    }
+    #services .text-base, #why-globalfreight .text-base, #about .text-base, #quote .text-base, #contact .text-base {
+        font-size: 0.875rem !important;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+    #tracking .max-w-md {
+        max-width: 36rem !important;
+    }
+    #tracking .text-4xl, #why-globalfreight .text-4xl, #about .text-4xl, #quote .text-4xl, #contact .text-4xl {
+        font-size: 2.5rem !important;
+    }
+    #tracking .text-2xl, #why-globalfreight .text-2xl, #contact .text-2xl {
+        font-size: 1.5rem !important;
+    }
+    #tracking table {
+        font-size: 0.875rem !important;
+    }
+    #services .text-4xl {
+        font-size: 2.5rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    #tracking .grid-cols-2 > div {
+        font-size: 1rem !important;
+    }
+    #tracking table {
+        font-size: 0.875rem !important;
+    }
+}
